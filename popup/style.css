@@ -1,0 +1,74 @@
+/* Base Rules */
+body {
+  background: #ebebeb;
+  color: #333;
+  max-width: 350px;
+  text-align: center;
+}
+
+::selection {
+  background: rgba(255,121,0,0.2);
+}
+
+a {
+  color: #2f7bbf;
+  outline: none;
+  text-decoration: none;
+}
+
+a:focus {
+  color: #62a1d8;
+}
+
+/* Layout Rules */
+
+/* Module Rules */
+.card {
+  margin: 0.5em;
+  background-color: #fff;
+  padding: 1em;
+  border: 1px solid #dedede;
+}
+
+.card-header {
+  margin: 0;
+}
+
+.card-body {
+}
+
+.card-title {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Input/Copy Rules */
+.is-monospaced {
+  font-family: monospace;
+}
+
+button.octicon {
+  font-size: 0.99em;
+}
+
+.copy-button {
+  height: 25px!important;
+  border-radius: 0px 2px 2px 0px!important;
+}
+
+.copy-input {
+  height: 25px!important;
+  border-radius: 4px 0px 0px 4px!important;
+}
+
+/* Hack */
+.claire-bg {
+  background-color: #fff;
+}
+
+.alert-warning {
+    background-color: #fcf8e3;
+    border-color: #faf2cc;
+    color: #8a6d3b;

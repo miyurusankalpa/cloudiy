@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Claire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.0.1/octicons.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="load" class="card">
+      <img src="https://d13yacurqjgara.cloudfront.net/users/73104/screenshots/2832940/cloud_load.gif" style="width:100%" />
+    </div>
+	<section id="test4" style="display:none;" class="card alert-warning">
+        <header class="card-header">
+          <h2 class="card-title">No Info</h2>
+        </header>
+    </section>
+    <div id="requestInfo">
+      <section id="ipAddress" class="card">
+        <header class="card-header">
+          <h2 class="card-title">CDN Provider</h2>
+        </header><hr>
+			<img id="test2" src="" style="height:100px;"></img>
+			<h3 id="provider"></h3> 
+			<p><span id="host"></span> (<span id="ip"></span>)</p>
+			(<span id="rayID"></span>)
+      </section>
+      <section id="location" class="card">
+        <header class="card-header">
+          <h2 class="card-title">Location</h2>
+        </header><hr>
+        <section class="card-body">
+			<img id="test" src=""></img>
+          <p><span id="locationName"></span> (<span id="locationCode"></span>)</p>
+        </section>
+      </section>
+      <section id="actions" class="card">
+        <header class="card-header">
+          <h2 class="card-title">Actions</h2>
+        </header><hr>
+        <section class="card-body">
+          <a id="traceURL" target="_blank" class="pure-button pure-button-primary">CF Trace</a><br>
+		  <form class="pure-form pure-form-stacked">
+		  <input id="ping" type="text" class="pure-input-1" style="text-align:center;">
+		  <input id="tracert" type="text" class="pure-input-1" style="text-align:center;">
+		  </form>
+        </section>
+      </section>
+    </div>
+    <script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="page-action-popup.js" type="text/javascript" charset="utf-8"></script>
+  </body>
+</html>
