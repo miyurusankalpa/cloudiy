@@ -3,19 +3,22 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Claire</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.0.1/octicons.min.css">
+    <title>Cloudiy</title>
+    <link rel="stylesheet" href="pure-min.css">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div id="load" class="card">
-      <img src="https://d13yacurqjgara.cloudfront.net/users/73104/screenshots/2832940/cloud_load.gif" style="width:100%" />
+      <img src="/images/cloud_load.gif" style="width:80%"/>
     </div>
-	<section id="test4" style="display:none;" class="card alert-warning">
-        <header class="card-header">
-          <h2 class="card-title">No Info</h2>
+	<section id="test4" style="display:none;" class="alert-box warning">
+        <header class="card-header"><span class="mega-octicon octicon-alert"></span>
+          <h2 class="card-title">Error</h2>
+        </header>
+    </section>
+	<section id="test5" style="display:none;" class="alert-box primary">
+        <header class="card-header"><span class="mega-octicon octicon-bell"></span>
+          <h2 class="card-title">Not a CDN</h2>
         </header>
     </section>
     <div id="requestInfo">
@@ -23,18 +26,21 @@
         <header class="card-header">
           <h2 class="card-title">CDN Provider</h2>
         </header><hr>
-			<img id="test2" src="" style="height:100px;"></img>
+			<img id="test2" src="" style="width:100%;"></img>
 			<h3 id="provider"></h3> 
 			<p><span id="host"></span> (<span id="ip"></span>)</p>
-			(<span id="rayID"></span>)
+			<span id="rqID" style="font-size:10px;"></span>
       </section>
       <section id="location" class="card">
         <header class="card-header">
-          <h2 class="card-title">Location</h2>
+          <h2 class="card-title">POP Location</h2>
         </header><hr>
         <section class="card-body">
 			<img id="test" src=""></img>
           <p><span id="locationName"></span> (<span id="locationCode"></span>)</p>
+		  <span id="bad1"></span>
+		  <span id="bad2" class="badge new badge-HIT">HTTP2: YES</span>
+		  <span id="bad3" class="badge new badge-HIT">IPv6: YES</span>
         </section>
       </section>
       <section id="actions" class="card">

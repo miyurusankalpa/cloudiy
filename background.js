@@ -12,7 +12,6 @@ define(['request'], function (Request) {
   var processCompletedRequest = function (details) {
     var request = new Request(details);
     window.requests[details.tabId] = request;
-    request.logToConsole();
   };
 
   var filter = {

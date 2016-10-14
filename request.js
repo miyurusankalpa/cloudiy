@@ -76,6 +76,14 @@ define(['airports','emoji'], function (airports,emoji) {
     return ('SERVER' in this.headers) && (this.headers.SERVER.split('/')[0] === 'NetDNA-cache');
   };
   
+  Request.prototype.servedByKeyCDN = function () {
+    return ('SERVER' in this.headers) && (this.headers.SERVER === 'keycdn-engine');
+  };
+  
+  Request.prototype.servedByEdgeCast = function () {
+return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'ECS') || (this.headers.SERVER.split(' ')[0] === 'ECD'));
+  };
+  
   Request.prototype.servedByRailgun = function () {
     return 'CF-RAILGUN' in this.headers;
   };
@@ -89,10 +97,11 @@ define(['airports','emoji'], function (airports,emoji) {
   };
   
   // RAY ID header format: CF-RAY:f694c6892660106-SIN
-  Request.prototype.getRayID = function () {
+  Request.prototype.getCloudFlareRayID = function () {
     return this.headers['CF-RAY'].split('-')[0];
   };
 
+  // see ^^
   Request.prototype.getCloudFlareLocationCode = function () {
     return this.headers['CF-RAY'].split('-')[1];
   };
@@ -102,13 +111,29 @@ define(['airports','emoji'], function (airports,emoji) {
     return this.headers['X-SERVED-BY'].split('-')[2];
   };
   
+  //X-Fastly-Request-ID:"3b8439a68c9e6237530ecafdf2579044b51049f6"
+  Request.prototype.getFastlyReqID = function () {
+    return this.headers['X-FASTLY-REQUEST-ID'];
+  };
+  
+  // Server:"ECS (fcn/9F92)"
+  Request.prototype.getEdgeCastLocationCode = function () {
+    return this.headers['SERVER'].split(' ')[1].split('/')[0].toUpperCase();
+  };
+  
+  // x-edge-location:"sgsg" this anit airport codes
+  Request.prototype.getKeyCDNLocationCode = function () {
+    return this.headers['X-EDGE-LOCATION'].substring(0,2).toUpperCase();
+  };
+  
   // You are hitting the MaxCDN Singapore Datacenter<br><img src=netdna.gif?city=202 >
   Request.prototype.getMaxCDNLocationCode = function (data) {
 	for(var propName in airports) {
     if(airports.hasOwnProperty(propName)) {
+		//skip, wrong city name, this will be fixed in the minifed version
 		if(propName=='XSP') continue;
         var propValue = airports[propName];
-		if(propValue['city']==data) { console.log(propName); return propName; break; }
+		if(propValue['city']==data) { return propName; break; }
 			}
 		};
   };
@@ -125,6 +150,13 @@ define(['airports','emoji'], function (airports,emoji) {
     }
 
     return LocationCode;
+  };
+  
+  Request.prototype.getCache = function () {
+	 if(this.headers['X-CACHE-HIT']) return this.headers['X-CACHE-HIT'].toUpperCase();
+	 if(this.headers['X-CACHE']) return this.headers['X-CACHE'].toUpperCase();
+	 if(this.headers['CF-CACHE-STATUS']) return this.headers['CF-CACHE-STATUS'].toUpperCase();
+    return "N/A";
   };
   
   Request.prototype.getLocationNameCountry = function (LocationCode) {
@@ -183,40 +215,6 @@ define(['airports','emoji'], function (airports,emoji) {
 	}
   };
   
-  // figure out what the page action should be based on the
-  // features we detected in this request
-  Request.prototype.getPageActionPath = function () {
-    return this.getImagePath('images/claire-3-');
-  };
-
-  Request.prototype.getPopupPath = function () {
-    return this.getImagePath('images/claire-3-popup-');
-  };
-
-  Request.prototype.getImagePath = function (basePath) {
-    var iconPathParts = [];
-
-    if (this.servedByCloudFlare()) {
-      iconPathParts.push('on');
-    } else {
-      iconPathParts.push('off');
-    }
-
-    if (this.servedOverH2()) {
-      iconPathParts.push('h2');
-    }
-
-    if (this.isv6IP()) {
-      iconPathParts.push('ipv6');
-    }
-
-    if (this.servedByRailgun()) {
-      iconPathParts.push('rg');
-    }
-
-    return basePath + iconPathParts.join('-');
-  };
-
   Request.prototype.setConnectionInfo = function (connectionInfo) {
     this.hasConnectionInfo = true;
     this.SPDY = connectionInfo.spdy;
@@ -243,23 +241,6 @@ define(['airports','emoji'], function (airports,emoji) {
         console.log('Exception on page action show for tab with ID: ', tabID, err);
       }
     });
-  };
-
-  Request.prototype.logToConsole = function () {
-    /*if (localStorage.getItem('debug_logging') !== 'yes') {
-      return;
-    }*/
-
-    console.log('\n');
-    console.log(this.details.url, this.details.ip, 'CF - ' + this.servedByCloudFlare());
-    console.log('Request - ', this.details);
-    if (this.servedByCloudFlare()) {
-      console.log('Ray ID - ', this.getRayID());
-    }
-    if (this.servedByRailgun()) {
-      var railgunMetaData = this.getRailgunMetaData();
-      console.log('Railgun - ', railgunMetaData.id, railgunMetaData.messages.join('; '));
-    }
   };
 
   return Request;

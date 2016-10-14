@@ -1,6 +1,6 @@
 {
-  "version": "0.0.2",
-  "name": "Cloudiy",
+  "version": "0.1.0",
+  "name": "Cloudiy (BETA)",
   "description": "Website and CDN informer",
   "manifest_version": 2,
   "homepage_url": "https://github.com/miyurusankalpa/cloudiy",
@@ -11,7 +11,7 @@
 
   "applications": {
     "gecko": {
-      "id": "@test",
+      "id": "miyuru@live.com",
       "strict_min_version": "46.0"
     }
   },
