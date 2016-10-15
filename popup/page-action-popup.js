@@ -29,7 +29,8 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
 		
 	var is_cdn = false;
 	
-    $('#ip').text(request.getServerIP());
+	$('#ip').text(request.getServerIP());
+	//if(request.ServedFromBrowserCache()) $('#ip').addClass("badge new badge-success").text("From Cache");
 	$('#tracert').val('tracert '+request.getServerIP());
 	$('#ping').val('ping '+request.getServerIP());
 	
@@ -52,7 +53,7 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
 	  var LocationCode = request.getFastlyLocationCode();
 	  $('#test2').attr('src', 'https://www.fastly.com/sites/all/themes/custom/fastly2016/logo.png');
     }
-	
+
 	// MaxCDN
     if (request.servedByMaxCDN()) {
 	  $('#provider').text("MaxCDN"); var is_cdn = true;
@@ -63,7 +64,7 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
 	  });
 	  $('#test2').attr('src', 'https://www.maxcdn.com/wp-content/themes/maxcdn/assets/img/branding/maxcdn-stackpath-logo.svg');
     }
-	
+	/*
 	// KeyCDN
     if (request.servedByKeyCDN()) {
 	  $('#provider').text("KeyCDN"); var is_cdn = true;
@@ -78,7 +79,7 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
       //$('#rayID').text(request.getRayID());
 	   var LocationCode = request.getEdgeCastLocationCode();
 	  $('#test2').attr('src', 'https://upload.wikimedia.org/wikipedia/commons/9/9b/EdgeCast_logo.png');
-    }
+    }*/
 	
 	if(!is_cdn){
 		$('#test5').show();
@@ -97,7 +98,7 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
 	  });*/
 	  $('#load').hide();
 	} else{
-		if($('#rqID').val()=="")  $('#rqID').hide();
+		if($('#rqID').val()=="") $('#rqID').hide();
 		test1(LocationCode); test2(request);
 	}
 	
@@ -117,6 +118,6 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
 	function test3(response){
 		if(response=='HIT') return "success"; else if(response=='MISS') return "warning"; else if(response==true) return "success"; else if(response==false) return "warning"; else return "primary";
 	}
-
+	
   });
 })();

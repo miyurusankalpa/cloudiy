@@ -1,12 +1,13 @@
-{
-  "version": "0.1.0",
+﻿{
+  "version": "0.1.0rc2",
   "name": "Cloudiy (BETA)",
   "description": "Website and CDN informer",
   "manifest_version": 2,
   "homepage_url": "https://github.com/miyurusankalpa/cloudiy",
   "icons": {
     "512": "icons/Cloudiy.png",
-    "128": "icons/Cloudiy128.png"
+    "128": "icons/Cloudiy128.png",
+	"64": "icons/Cloudiy64.png"
   },
 
   "applications": {
@@ -25,9 +26,8 @@
   },
 
   "browser_action": {
-    "default_icon": "icons/Cloudiy128.png",
+    "default_icon": "icons/Cloudiy64.png",
     "default_title": "Cloudiy",
     "default_popup": "popup/settings.html"
   }
-
 }

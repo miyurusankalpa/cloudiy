@@ -69,7 +69,7 @@ define(['airports','emoji'], function (airports,emoji) {
   };
   
   Request.prototype.servedByFastly = function () {
-    return ('X-FASTLY-REQUEST-ID' in this.headers) && ('X-SERVED-BY' in this.headers);
+    return ('X-FASTLY-REQUEST-ID' in this.headers) || (('X-SERVED-BY' in this.headers) && ('X-TIMER' in this.headers));
   };
   
   Request.prototype.servedByMaxCDN = function () {
@@ -89,7 +89,7 @@ return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'EC
   };
 
   Request.prototype.servedOverH2 = function () {
-    return this.SPDY && this.connectionType === 'h2';
+	return ('X-FIREFOX-SPDY' in this.headers) && (this.headers['X-FIREFOX-SPDY'] === 'h2');
   };
 
   Request.prototype.ServedFromBrowserCache = function () {
@@ -227,8 +227,8 @@ return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'EC
     chrome.pageAction.setIcon({
       tabId: this.details.tabId,
       path: {
-        19: iconPath + '.png',
-        38: iconPath + '@2x.png'
+        19: 'icons/Cloudiy128.png',
+        38: 'icons/Cloudiy.png'
       }
     }, function () {
       try {
