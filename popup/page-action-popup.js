@@ -51,7 +51,7 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
 	  $('#provider').text("Fastly"); var is_cdn = true;
       $('#rqID').text(request.getFastlyReqID());
 	  var LocationCode = request.getFastlyLocationCode();
-	  $('#test2').attr('src', 'https://www.fastly.com/sites/all/themes/custom/fastly2016/logo.png');
+	  $('#test2').attr('src', 'https://www.fastly.com/assets/logo_retina-6816d1f02dce14f709a182ea06e33b76ff59ec2f69b99491d068d849835e7859.png?auto=webp&width=260px');
     }
 
 	// MaxCDN
@@ -101,7 +101,7 @@ $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax
 		if($('#rqID').val()=="") $('#rqID').hide();
 		test1(LocationCode); test2(request);
 	}
-	
+
 	function test1(LocationCode){
 		$('#locationCode').text(LocationCode);
         $('#locationName').text(request.getLocationName(LocationCode));

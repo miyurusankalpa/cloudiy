@@ -1,7 +1,9 @@
-define(['airports','emoji'], function (airports,emoji) {
-  'use strict';
+ 
+ var airports = $.get("/data/airports.json");
+ var emoji2 = $.get("/data/emoji.json");
 
-  // the Request object, contains information about a request
+ //'use strict';
+ // the Request object, contains information about a request
   var Request = function (details) {
     this.details = details;
     this.headersRaw = details.responseHeaders;
@@ -81,7 +83,7 @@ define(['airports','emoji'], function (airports,emoji) {
   };
   
   Request.prototype.servedByEdgeCast = function () {
-return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'ECS') || (this.headers.SERVER.split(' ')[0] === 'ECD'));
+	return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'ECS') || (this.headers.SERVER.split(' ')[0] === 'ECD'));
   };
   
   Request.prototype.servedByRailgun = function () {
@@ -144,7 +146,9 @@ return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'EC
   };
 
   Request.prototype.getLocationName = function (LocationCode) {
-    var airportData = airports[LocationCode];
+	   console.log(airports);
+
+    var airportData = airports.responseJSON[LocationCode];
     if (airportData) {
       return airportData.city + ', ' + airportData.country;
     }
@@ -160,7 +164,7 @@ return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'EC
   };
   
   Request.prototype.getLocationNameCountry = function (LocationCode) {
-    var airportData = airports[LocationCode];
+    var airportData = airports.responseJSON[LocationCode];
     if (airportData) {
       return airportData.country;
     }
@@ -200,20 +204,21 @@ return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'EC
   Request.prototype.isv6IP = function () {
     return this.getServerIP().indexOf(':') !== -1;
   };
-
+  
   Request.prototype.getLocationEmoji = function (locationCode) {
 	var locationCountry = this.getLocationNameCountry(locationCode);
+	var emoji = emoji2.responseJSON;
 	for(var propName in emoji) {
     if(emoji.hasOwnProperty(propName)) {
         var propValue = emoji[propName];
 		if(locationCode.length>2) {
-		if(propValue['name']==locationCountry) return propValue['emoji'];
+		if(propValue["name"]==locationCountry) return propValue["emoji"];
 		} else {
-		if(propValue['code']==locationCode) { console.log(propValue); return propValue['emoji'];}
+		if(propValue["code"]==locationCode) { console.log(propValue); return propValue["emoji"];}
 		}
 	  }
 	}
-  };
+};
   
   Request.prototype.setConnectionInfo = function (connectionInfo) {
     this.hasConnectionInfo = true;
@@ -242,6 +247,3 @@ return ('SERVER' in this.headers) && ((this.headers.SERVER.split(' ')[0] === 'EC
       }
     });
   };
-
-  return Request;
-});

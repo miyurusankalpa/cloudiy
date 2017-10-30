@@ -1,9 +1,5 @@
 // Claire
 
-/* global define */
-define(['request'], function (Request) {
-  'use strict';
-
   // a mapping of tab IDs to window.requests
   window.requests = {};
 
@@ -61,4 +57,3 @@ define(['request'], function (Request) {
   chrome.tabs.onRemoved.addListener(function (tabId) {
     delete window.requests[tabId];
   });
-});
